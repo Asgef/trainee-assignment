@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "python-trainee-assignment"
+name = "trainee-assignment"
 version = "0.1.0"
 description = ""
 authors = ["Asgef <asgefes1@gmail.com>"]
@@ -7,6 +7,8 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.12"
+asyncio = "^3.4.3"
+aiohttp = "^3.10.10"
 
 
 [build-system]

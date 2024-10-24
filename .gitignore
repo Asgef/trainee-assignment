@@ -8,6 +8,7 @@ __pycache__
 *.pyc
 *.iml
 
+note
 .idea/*.iml
 coverage.xml
 
