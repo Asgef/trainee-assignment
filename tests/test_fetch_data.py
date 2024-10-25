@@ -1,15 +1,10 @@
 import pytest
 import aiohttp
 import asyncio
-from pytest_asyncio import fixture
-from unittest.mock import AsyncMock
 from trainee_assignment.spiral_matrix import fetch_data
 from aiohttp import (
-    ClientResponseError, ClientConnectorError, RequestInfo, ClientOSError,
-    ClientSession, ClientResponse
+    ClientConnectorError, ClientOSError, ClientSession
 )
-from aiohttp.typedefs import CIMultiDict
-from aiohttp.typedefs import URL
 from aioresponses import aioresponses
 
 
@@ -39,8 +34,9 @@ async def test_fetch_dataserver_error():
     with aioresponses() as mocked:
         mocked.get('https://example.com', status=500)
         async with ClientSession() as session:
-            result = await fetch_data('https://example.com', session)
-            assert result == ''
+            with pytest.raises(aiohttp.ClientResponseError):
+                await fetch_data('https://example.com', session)
+
 
 
 @pytest.mark.asyncio
@@ -55,7 +51,11 @@ async def test_fetch_data_timeout():
 @pytest.mark.asyncio
 async def test_fetch_data_connection_refused():
     with aioresponses() as mocked:
-        mocked.get('https://example.com', exception=ClientOSError(111, 'Connection refused'))
+        mocked.get(
+            'https://example.com', exception=ClientOSError(
+                111, 'Connection refused'
+            )
+        )
         async with ClientSession() as session:
             with pytest.raises(ClientConnectorError):
                 await fetch_data('https://example.com', session)
