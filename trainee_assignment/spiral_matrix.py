@@ -21,6 +21,7 @@ async def fetch_data(url, session) -> str:
     except asyncio.TimeoutError:
         raise
 
+
 def convert_str_to_matrix(data: str) -> list[int]:
     pass
 
@@ -35,4 +36,3 @@ async def get_matrix(url: str) -> List[int]:
     data = convert_str_to_matrix(data_str)
 
     return matrix_to_spiral(data)
-

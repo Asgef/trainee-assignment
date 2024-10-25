@@ -38,7 +38,6 @@ async def test_fetch_dataserver_error():
                 await fetch_data('https://example.com', session)
 
 
-
 @pytest.mark.asyncio
 async def test_fetch_data_timeout():
     with aioresponses() as mocked:
