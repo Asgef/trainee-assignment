@@ -11,6 +11,10 @@ asyncio = "^3.4.3"
 aiohttp = "^3.10.10"
 
 
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.3"
+pytest-asyncio = "^0.24.0"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
