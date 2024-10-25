@@ -4,7 +4,22 @@ from typing import List
 
 
 async def fetch_data(url, session) -> str:
-    pass
+    try:
+        async with session.get(url, allow_redirects=True) as response:
+            response.raise_for_status()
+            data = await response.text()
+            return data
+    except aiohttp.ClientResponseError as e:
+        if 400 <= e.status < 600:
+            raise aiohttp.ClientResponseError(
+                status=e.status, message=e.message,
+                request_info=e.request_info,
+                history=e.history
+            )
+    except aiohttp.ClientOSError as e:
+        raise aiohttp.ClientConnectorError(os_error=e, connection_key=url)
+    except asyncio.TimeoutError:
+        raise
 
 def convert_str_to_matrix(data: str) -> list[int]:
     pass
