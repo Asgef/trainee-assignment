@@ -1,5 +1,5 @@
 from .test_fetch_data import read_fixture_file
-from trainee_assignment.parser import convert_str_to_matrix
+from trainee_assignment.matrix_utils import convert_str_to_matrix
 
 
 def test_convert_str_to_matrix_success():
