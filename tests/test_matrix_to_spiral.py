@@ -17,7 +17,7 @@ data_case_3 = [
         [1, 2],
         [3, 4]
     ]
-data_case_4 = [1]
+data_case_4 = [[1]]
 data_case_5 = [
         [1, 2, 3],
         [4, 5, 6],

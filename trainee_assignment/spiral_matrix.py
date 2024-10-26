@@ -1,7 +1,7 @@
 import asyncio
 import aiohttp
 from typing import List
-from .parser import convert_str_to_matrix
+from .matrix_utils import convert_str_to_matrix, matrix_to_spiral
 
 
 async def fetch_data(url, session) -> str:  # noqa C901
@@ -26,10 +26,6 @@ async def fetch_data(url, session) -> str:  # noqa C901
         raise aiohttp.ClientConnectorError(os_error=e, connection_key=url)
     except asyncio.TimeoutError:
         raise
-
-
-def matrix_to_spiral(data: list[list[int]]) -> list[int]:
-    pass
 
 
 async def get_matrix(url: str) -> List[int]:

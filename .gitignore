@@ -11,6 +11,7 @@ __pycache__
 note
 .idea/*.iml
 coverage.xml
+example.py
 
 .coverage
 .tool-versions
