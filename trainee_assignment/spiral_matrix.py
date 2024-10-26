@@ -1,14 +1,20 @@
 import asyncio
 import aiohttp
 from typing import List
+from .parser import convert_str_to_matrix
 
 
 async def fetch_data(url, session) -> str:
     try:
         async with session.get(url, allow_redirects=True) as response:
             response.raise_for_status()
+
+            if response.status != 200:
+                return ''
+
             data = await response.text()
             return data
+
     except aiohttp.ClientResponseError as e:
         if 400 <= e.status < 600:
             raise aiohttp.ClientResponseError(
@@ -21,9 +27,6 @@ async def fetch_data(url, session) -> str:
     except asyncio.TimeoutError:
         raise
 
-
-def convert_str_to_matrix(data: str) -> list[int]:
-    pass
 
 
 def matrix_to_spiral(data: list[int]) -> list[int]:
