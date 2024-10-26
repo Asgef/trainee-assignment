@@ -19,7 +19,7 @@ def test_convert_str_to_matrix_unsuccessful_1():
         '<title>Title</title></head><body></body></html>'
     )
     data = convert_str_to_matrix(str_data)
-    assert data == ''
+    assert data == []
 
 
 def test_convert_str_to_matrix_unsuccessful_2():

@@ -4,7 +4,7 @@ from typing import List
 from .parser import convert_str_to_matrix
 
 
-async def fetch_data(url, session) -> str:
+async def fetch_data(url, session) -> str:  # noqa C901
     try:
         async with session.get(url, allow_redirects=True) as response:
             response.raise_for_status()
@@ -28,8 +28,7 @@ async def fetch_data(url, session) -> str:
         raise
 
 
-
-def matrix_to_spiral(data: list[int]) -> list[int]:
+def matrix_to_spiral(data: list[list[int]]) -> list[int]:
     pass
 
 

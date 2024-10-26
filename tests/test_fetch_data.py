@@ -41,7 +41,6 @@ async def test_fetch_data_unsuccessful():
             assert result == expected
 
 
-
 @pytest.mark.asyncio
 async def test_fetch_dataserver_error():
     with aioresponses() as mocked:
