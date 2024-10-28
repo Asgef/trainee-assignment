@@ -6,50 +6,62 @@ from .test_fetch_data import read_fixture_file
 from trainee_assignment.matrix_utils import prepare_matrix
 
 
-def test_convert_str_to_matrix_success_1():
-    str_data = read_fixture_file('required_matrix.txt')
-    data = prepare_matrix(str_data)
-    assert data == [
+data_case_1 = read_fixture_file('required_matrix.txt')
+data_case_2 = (
+        '+---+\n'
+        '|404|\n'
+        '+---+\n'
+    )
+
+expected_case_1 = [
         [10, 20, 30, 40],
         [50, 60, 70, 80],
         [90, 100, 110, 120],
         [130, 140, 150, 160]
     ]
-
-def test_convert_str_to_matrix_success_2():
-    str_data = (
-        '+---+\n'
-        '|404|\n'
-        '+---+\n'
-    )
-    data = prepare_matrix(str_data)
-    assert data == [
-        [404]
-    ]
+expected_case_2 = [[404]]
 
 
-def test_convert_str_to_matrix_unsuccessful_1():
-    with pytest.raises(MatrixFormatError):
-        prepare_matrix(
+test_cases = [
+    (prepare_matrix,data_case_1, expected_case_1),
+    (prepare_matrix, data_case_2, expected_case_2),
+]
+
+
+@pytest.mark.parametrize('prepare_matrix_func, data, expected', test_cases)
+def test_prepare_matrix_success(prepare_matrix_func, data, expected):
+    assert prepare_matrix_func(data) == expected
+
+
+
+test_case_1 = read_fixture_file('non_square_matrix_1.txt')
+test_case_2 = read_fixture_file('non_square_matrix_2.txt')
+test_case_3 = (
         '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">'
         '<title>Title</title></head><body></body></html>'
     )
+test_case_4 = ''
+test_case_5 = 'I404I\n'
 
 
-def test_convert_str_to_matrix_unsuccessful_2():
-    with pytest.raises(MatrixFormatError):
-        prepare_matrix('')
+
+expected_case_1 = MatrixNotSquareError
+expected_case_2 = MatrixNotSquareError
+expected_case_3 = MatrixFormatError
+expected_case_4 = MatrixFormatError
+expected_case_5 = MatrixFormatError
 
 
-def test_convert_str_to_matrix_unsuccessful_3():
-    with pytest.raises(MatrixFormatError):
-        prepare_matrix('I404I\n')
+test_cases = [
+    (prepare_matrix, test_case_1, expected_case_1),
+    (prepare_matrix, test_case_2, expected_case_2),
+    (prepare_matrix, test_case_3, expected_case_3),
+    (prepare_matrix, test_case_4, expected_case_4),
+    (prepare_matrix, test_case_5, expected_case_5),
+]
 
 
-def test_convert_str_to_matrix_unsuccessful_4():
-    with pytest.raises(MatrixFormatError):
-        prepare_matrix('<404>\n')
-
-def test_convert_str_to_matrix_unsuccessful_5():
-    with pytest.raises(MatrixNotSquareError):
-        prepare_matrix(read_fixture_file('non_square_matrix.txt'))
+@pytest.mark.parametrize('prepare_matrix_func, data, expected', test_cases)
+def test_prepare_matrix_unsuccessful(prepare_matrix_func, data, expected):
+    with pytest.raises(expected):
+        prepare_matrix(data)
