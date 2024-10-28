@@ -1,8 +1,8 @@
 import pytest
 from .test_fetch_data import read_fixture_file
-from trainee_assignment.matrix_parsing import prepare_matrix
+from matrix_crawler.matrix_parsing import prepare_matrix
 
-from trainee_assignment.exceptions import (
+from matrix_crawler.exceptions import (
     MatrixFormatError, MatrixNotSquareError
 )
 

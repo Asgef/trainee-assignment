@@ -3,7 +3,7 @@ import pytest
 import asyncio
 from aiohttp import web
 from aioresponses import aioresponses
-from trainee_assignment.spiral_matrix import fetch_data
+from matrix_crawler.spiral_matrix import fetch_data
 from aiohttp import (
     ClientConnectorError, ClientOSError, ClientSession
 )
