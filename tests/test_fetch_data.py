@@ -1,5 +1,5 @@
 import pytest
-import aiohttp
+from aiohttp import web
 import asyncio
 import os
 from trainee_assignment.spiral_matrix import fetch_data
@@ -30,28 +30,25 @@ async def test_fetch_data_success():
 
 
 @pytest.mark.asyncio
-async def test_fetch_data_unsuccessful():
-    expected = ''
-    text_data = '204 No Content'
-
+async def test_fetch_dataserver_error_404():
     with aioresponses() as mocked:
-        mocked.get('https://example.com', status=204, body=text_data)
+        mocked.get('https://example.com', status=404)
         async with ClientSession() as session:
-            result = await fetch_data('https://example.com', session)
-            assert result == expected
-
-
-@pytest.mark.asyncio
-async def test_fetch_dataserver_error():
-    with aioresponses() as mocked:
-        mocked.get('https://example.com', status=500)
-        async with ClientSession() as session:
-            with pytest.raises(aiohttp.ClientResponseError):
+            with pytest.raises(web.HTTPNotFound):
                 await fetch_data('https://example.com', session)
 
 
 @pytest.mark.asyncio
-async def test_fetch_data_timeout():
+async def test_fetch_dataserver_error_500():
+    with aioresponses() as mocked:
+        mocked.get('https://example.com', status=500)
+        async with ClientSession() as session:
+            with pytest.raises(web.HTTPBadGateway):
+                await fetch_data('https://example.com', session)
+
+
+@pytest.mark.asyncio
+async def test_fetch_data_error_timeout():
     with aioresponses() as mocked:
         mocked.get('https://example.com', exception=asyncio.TimeoutError())
         async with ClientSession() as session:
@@ -60,7 +57,7 @@ async def test_fetch_data_timeout():
 
 
 @pytest.mark.asyncio
-async def test_fetch_data_connection_refused():
+async def test_fetch_data_error_connection():
     with aioresponses() as mocked:
         mocked.get(
             'https://example.com', exception=ClientOSError(
