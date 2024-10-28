@@ -1,7 +1,24 @@
 [tool.poetry]
 name = "matrix_crawler"
 version = "0.1.0"
-description = ""
+description = """
+A Python library for retrieving, parsing, and converting matrix data \
+into spiral order. Supports asynchronous HTTP requests with aiohttp \
+and data validation for reliable matrix operations.
+"""
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Scientific/Engineering :: Mathematics",
+    "Typing :: Typed",
+    "Framework :: AsyncIO",
+]
 authors = ["Asgef <asgefes1@gmail.com>"]
 readme = "README.md"
 
