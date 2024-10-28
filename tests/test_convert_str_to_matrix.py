@@ -1,6 +1,7 @@
 import pytest
-
-from trainee_assignment.exceptions import MatrixFormatError
+from trainee_assignment.exceptions import (
+    MatrixFormatError, MatrixNotSquareError
+)
 from .test_fetch_data import read_fixture_file
 from trainee_assignment.matrix_utils import prepare_matrix
 
@@ -48,3 +49,7 @@ def test_convert_str_to_matrix_unsuccessful_3():
 def test_convert_str_to_matrix_unsuccessful_4():
     with pytest.raises(MatrixFormatError):
         prepare_matrix('<404>\n')
+
+def test_convert_str_to_matrix_unsuccessful_5():
+    with pytest.raises(MatrixNotSquareError):
+        prepare_matrix(read_fixture_file('non_square_matrix.txt'))
