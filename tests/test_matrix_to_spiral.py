@@ -1,5 +1,5 @@
-from trainee_assignment.matrix_operation import matrix_to_spiral
 import pytest
+from trainee_assignment.matrix_operation import matrix_to_spiral
 
 
 data_case_1 = [

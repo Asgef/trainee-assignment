@@ -1,9 +1,10 @@
 import pytest
+from .test_fetch_data import read_fixture_file
+from trainee_assignment.matrix_parsing import prepare_matrix
+
 from trainee_assignment.exceptions import (
     MatrixFormatError, MatrixNotSquareError
 )
-from .test_fetch_data import read_fixture_file
-from trainee_assignment.matrix_operation import prepare_matrix
 
 
 data_case_1 = read_fixture_file('required_matrix.txt')
@@ -23,7 +24,7 @@ expected_case_2 = [[404]]
 
 
 test_cases = [
-    (prepare_matrix,data_case_1, expected_case_1),
+    (prepare_matrix, data_case_1, expected_case_1),
     (prepare_matrix, data_case_2, expected_case_2),
 ]
 
@@ -31,7 +32,6 @@ test_cases = [
 @pytest.mark.parametrize('prepare_matrix_func, data, expected', test_cases)
 def test_prepare_matrix_success(prepare_matrix_func, data, expected):
     assert prepare_matrix_func(data) == expected
-
 
 
 test_case_1 = read_fixture_file('non_square_matrix_1.txt')
@@ -42,7 +42,6 @@ test_case_3 = (
     )
 test_case_4 = ''
 test_case_5 = 'I404I\n'
-
 
 
 expected_case_1 = MatrixNotSquareError

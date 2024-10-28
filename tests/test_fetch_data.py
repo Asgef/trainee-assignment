@@ -1,12 +1,12 @@
-import pytest
-from aiohttp import web
-import asyncio
 import os
+import pytest
+import asyncio
+from aiohttp import web
+from aioresponses import aioresponses
 from trainee_assignment.spiral_matrix import fetch_data
 from aiohttp import (
     ClientConnectorError, ClientOSError, ClientSession
 )
-from aioresponses import aioresponses
 
 
 def read_fixture_file(filename: str) -> str:
