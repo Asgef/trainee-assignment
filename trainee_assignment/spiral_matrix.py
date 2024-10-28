@@ -2,7 +2,7 @@ import asyncio
 import aiohttp
 from aiohttp import web
 from typing import List
-from .matrix_utils import convert_str_to_matrix, matrix_to_spiral
+from .matrix_utils import prepare_matrix, matrix_to_spiral
 
 
 async def fetch_data(url, session) -> str:  # noqa C901
@@ -54,6 +54,6 @@ async def get_matrix(url: str) -> List[int]:
     async with aiohttp.ClientSession() as session:
         data_str: str = await fetch_data(url, session)
 
-    data: list[list[int]] = convert_str_to_matrix(data_str)
+    data: list[list[int]] = prepare_matrix(data_str)
 
     return matrix_to_spiral(data)

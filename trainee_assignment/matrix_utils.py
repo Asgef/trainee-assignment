@@ -1,26 +1,13 @@
 import re
+from .exceptions import MatrixFormatError, MatrixNotSquareError
 
 
 def contain_digit(data: str) -> bool:
     return bool(re.search(r'\d', data))
 
 
-def parse_matrix(lines: list[str]) -> list[list[int]]:
-    return [
-        [int(elem.strip()) for elem in line.split('|') if elem.strip()]
-        for line in lines if contain_digit(line)
-    ]
-
-
-def convert_str_to_matrix(data: str) -> list[list[int]]:
-    if data == '' or '\n' not in data:
-        return []
-
-    lines = data.split('\n')
-    if len(lines) < 2:
-        return []
-
-    return parse_matrix(lines)
+def contain_letter(data: str) -> bool:
+    return bool(re.search(r'[a-zA-Z]', data))
 
 
 def matrix_is_square(data: list[list[int]]) -> bool:
@@ -30,11 +17,6 @@ def matrix_is_square(data: list[list[int]]) -> bool:
 
 
 def matrix_to_spiral(data: list[list[int]]) -> list[int]:  # noqa C901
-    if not data or not matrix_is_square(data):
-        return []
-    if len(data) == 1:
-        return data[0]
-
     result = []
     top, bottom = 0, len(data) - 1
     left, right = 0, len(data[0]) - 1
@@ -63,3 +45,26 @@ def matrix_to_spiral(data: list[list[int]]) -> list[int]:  # noqa C901
             top += 1
 
     return result
+
+
+def parse_matrix(lines: list[str]) -> list[list[int]]:
+    return [
+        [int(elem.strip()) for elem in line.split('|') if elem.strip()]
+        for line in lines if contain_digit(line)
+    ]
+
+
+def prepare_matrix(data: str) -> list[list[int]]:
+    if ('\n' not in data or '|' not in data) or not data:
+        raise MatrixFormatError('Invalid matrix format')
+
+    lines = data.split('\n')
+    for line in lines:
+        if contain_letter(line):
+            raise MatrixFormatError('Matrix contains letters')
+
+    matrix = parse_matrix(lines)
+
+    if not matrix_is_square(matrix):
+        raise MatrixNotSquareError('Matrix is not square')
+    return matrix
