@@ -1,11 +1,8 @@
 [tool.poetry]
 name = "matrix_crawler"
 version = "0.1.0"
-description = """
-A Python library for retrieving, parsing, and converting matrix data \
-into spiral order. Supports asynchronous HTTP requests with aiohttp \
-and data validation for reliable matrix operations.
-"""
+description = "A Python library for retrieving, parsing, and converting matrix data into spiral order. Supports asynchronous HTTP requests with aiohttp and data validation for reliable matrix operations."
+
 classifiers = [
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.12",
