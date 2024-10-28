@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "trainee-assignment"
+name = "matrix_crawler"
 version = "0.1.0"
 description = ""
 authors = ["Asgef <asgefes1@gmail.com>"]
