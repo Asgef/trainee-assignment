@@ -2,7 +2,8 @@ import asyncio
 import aiohttp
 from aiohttp import web
 from typing import List
-from .matrix_utils import prepare_matrix, matrix_to_spiral
+from .matrix_operation import matrix_to_spiral
+from .matrix_parsing import prepare_matrix
 
 
 async def fetch_data(url, session) -> str:  # noqa C901

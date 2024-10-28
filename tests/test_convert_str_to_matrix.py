@@ -3,7 +3,7 @@ from trainee_assignment.exceptions import (
     MatrixFormatError, MatrixNotSquareError
 )
 from .test_fetch_data import read_fixture_file
-from trainee_assignment.matrix_utils import prepare_matrix
+from trainee_assignment.matrix_operation import prepare_matrix
 
 
 data_case_1 = read_fixture_file('required_matrix.txt')
